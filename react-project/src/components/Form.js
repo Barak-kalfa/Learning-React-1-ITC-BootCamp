@@ -1,16 +1,22 @@
 import { useState } from "react";
 import Notes from "./Notes";
+import Moment from 'moment';
 
 function NotesForm() {
      const [notes, setNotes] = useState([]);
      const [noteTitle, setNoteTitle] = useState("");
      const [noteText, setNoteText] = useState("");
-     const [date, setDate] = useState(new Date().toString());
+     const [date, setDate] = useState(Moment().format("MMM Do YY"));
+     const [id, setId] = useState(0);
 
+     const deleteNotes = (id) => {
+          setNotes(notes.filter((notes) => notes.id !== id))
+         }
      function addNote(e) {
+          setId(Math.random())
           e.preventDefault();
-          setDate(new Date().toString());
-          const note = { noteTitle, noteText, date };
+          setDate(Moment().format("MMM Do YY"));
+          const note = { noteTitle, noteText, date, id };
           setNotes(notes.concat(note));
      }
      return (
@@ -55,7 +61,7 @@ function NotesForm() {
                <br></br>
                {notes.length > 0 ? (
                     <div className="m-5">
-                         <Notes notes={notes} />
+                         <Notes notes={notes} onDelete={deleteNotes}/>
                     </div>
                ) : (
                     `You Currently  Have No Notes`
