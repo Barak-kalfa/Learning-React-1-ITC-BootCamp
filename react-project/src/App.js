@@ -1,17 +1,10 @@
-import { useState } from "react";
+
 import NotesForm from "./components/Form";
   
-
-
-
 function App() {
-
-     
   return (
-    <div className="App d-flex justify-content-center">
-      
+    <div className="App d-flex justify-content-center ">
      <NotesForm />
-     
     </div>
   );
 }

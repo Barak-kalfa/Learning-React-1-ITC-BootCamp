@@ -1,10 +1,7 @@
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import NotesForm from "./Form";
 
 function NoteModal(props) {
-
-
      return (
           <Modal
                style={{ backgroundColor: "#ffffff" }}
@@ -12,18 +9,14 @@ function NoteModal(props) {
                aria-labelledby="contained-modal-title-vcenter"
                centered
           >
-              <NotesForm 
-              note={props.note}
-              noteCardTitle={props.note.noteTitle}
-              noteCardText={props.note.noteText}
-              noteCardDate={props.note.createdDate}
-              noteUpdatedDate={props.note.updatedDate}
-              noteCardId={props.note.id}
-              show={props.show}
-              onHide={props.onHide}
-        
+               <NotesForm
+                    note={props.note}
+                    noteCardTitle={props.note.noteTitle}
+                    noteCardText={props.note.noteText}
+                    noteUpdatedDate={props.note.updatedDate}
+                    modalShow={props.show}
+                    onHide={props.onHide}
                />
-              
           </Modal>
      );
 }

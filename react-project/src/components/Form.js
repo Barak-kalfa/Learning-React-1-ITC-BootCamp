@@ -3,29 +3,15 @@ import Notes from "./Notes";
 import Moment from "moment";
 import Card from "react-bootstrap/Card";
 
-
 function NotesForm(props) {
      const [notes, setNotes] = useState([]);
      const [noteTitle, setNoteTitle] = useState(props.noteCardTitle);
      const [noteText, setNoteText] = useState(props.noteCardText);
      const [createdDate, setDate] = useState();
-     const [updatedDate, setUpdatedDate] = useState (props.updatedDate);
+     const [updatedDate, setUpdatedDate] = useState(props.updatedDate);
      const [id, setId] = useState(0);
 
-
-     const updateNote = (e) => {
-          e.preventDefault();
-          props.note.noteTitle = noteTitle;
-          props.note.noteText = noteText;
-          props.note.updatedDate = updatedDate;
-          props.onHide(false);
-
-     };
-
-     const deleteNote = (id) => {
-          setNotes(notes.filter((notes) => notes.id !== id));
-     };
-
+     
      function addNote(e) {
           setId(Math.random());
           e.preventDefault();
@@ -33,39 +19,53 @@ function NotesForm(props) {
           setNotes([...notes, note]);
      }
 
-     if (!props.show) {
+     const updateNote = (e) => {
+          e.preventDefault();
+          props.note.noteTitle = noteTitle;
+          props.note.noteText = noteText;
+          props.note.updatedDate = updatedDate;
+          props.onHide(false);
+     };
+
+     const deleteNote = (id) => {
+          setNotes(notes.filter((notes) => notes.id !== id));
+     };
+
+
+     if (!props.modalShow) {
           return (
-               <div className="p-4 d-flex justify-content-center flex-column align-items-center">
+               <div className="p-4 d-flex flex-column align-items-center ">
                     <div>
                          <form
                               onSubmit={addNote}
-                              className="align-items-center  p-3  d-flex justify-content-center flex-column "
+                              className="align-items-center p-3 d-flex flex-column "
                          >
                               <h1 className="display-3 fw-bold">Add Note</h1>
                               <label className="h4">
                                    Note Title: <br></br>
                                    <input
+                                        className="rounded"
                                         type="text"
                                         id="noteTitle"
                                         defaultValue={noteTitle}
                                         onChange={(e) =>
-                                             setNoteTitle(e.target.value)
-                                        }
+                                             setNoteTitle(e.target.value)}
                                    />
                               </label>
                               <br></br>
                               <label className="h4">
                                    Note: <br></br>
                                    <textarea
+                                        className="rounded "
                                         type="textarea"
                                         value={noteText}
                                         id="noteText"
                                         onChange={(e) => {
-                                             console.log(e.target)
-                                             setNoteText(e.target.value)
-                                             setDate(Moment().format("MMM Do YY"));
-                                             setUpdatedDate("")
-                                 
+                                             setNoteText(e.target.value);
+                                             setDate(
+                                                  Moment().format("MMM Do YY")
+                                             );
+                                             setUpdatedDate("");
                                         }}
                                         required
                                    />
@@ -88,7 +88,6 @@ function NotesForm(props) {
                                    notes={notes}
                                    onDelete={deleteNote}
                                    setNoteTitle={setNoteTitle}
-                                
                               />
                          </div>
                     ) : (
@@ -99,18 +98,25 @@ function NotesForm(props) {
      } else {
           return (
                <form onSubmit={updateNote}>
-                    <Card className="p-2"
+                    <Card
+                         className="p-2"
                          style={{
                               width: "100%",
                               backgroundColor: "rgb(254, 208, 73)",
                          }}
                     >
-                   
-                         <div className=" p-3 d-flex justify-content-between"><span>Created On: {props.note.createdDate}</span><span>{  props.note.updatedDate ? `Last Updated on: ` + props.note.updatedDate : "" }</span>  
+                         <div className=" p-3 d-flex justify-content-between">
+                              <span>Created On: {props.note.createdDate}</span>
+                              <span>
+                                   {props.note.updatedDate
+                                        ? `Last Updated on: ` +
+                                          props.note.updatedDate
+                                        : ""}
+                              </span>
                          </div>
-                         <h1 className="display-3 ps-2 fw-bold">Edit Note</h1>
+                         <h1 className="display-5 ps-2 fw-bold">Edit Note</h1>
                          <Card.Body>
-                              <Card.Title className="fs-4 fw-bold d-flex justify-content-between">
+                              <Card.Title className="fs-4 fw-bold ">
                                    {
                                         <input
                                              style={{
@@ -123,13 +129,14 @@ function NotesForm(props) {
                                              type="text"
                                              id="noteTitle"
                                              defaultValue={noteTitle}
-                                             onChange={(e) =>{
-                                                  setNoteTitle(e.target.value)
-                                                  setUpdatedDate(Moment().format("MMM Do YY"));
-                           
-                                                  
-                                             }
-                                             }
+                                             onChange={(e) => {
+                                                  setNoteTitle(e.target.value);
+                                                  setUpdatedDate(
+                                                       Moment().format(
+                                                            "MMM Do YY"
+                                                       )
+                                                  );
+                                             }}
                                         />
                                    }
                               </Card.Title>
@@ -144,14 +151,16 @@ function NotesForm(props) {
                                         type="textarea"
                                         value={noteText}
                                         id="noteText"
-                                        onChange={(e) =>{
-                                             setNoteText(e.target.value)
-                                             setUpdatedDate(Moment().format("MMM Do YY"));
+                                        onChange={(e) => {
+                                             setNoteText(e.target.value);
+                                             setUpdatedDate(
+                                                  Moment().format("MMM Do YY")
+                                             );
                                         }}
                                         required
                                    />
                               </Card.Text>
-                              <Card.Subtitle className="mb-2 text-muted d-flex justify-content-between">
+                              <Card.Subtitle className="mb-2 text-muted ">
                                    <input
                                         className="rounded-pill p-2 ps-5 pe-5 mt-3"
                                         style={{
@@ -160,7 +169,7 @@ function NotesForm(props) {
                                         }}
                                         type="submit"
                                         value="Update"
-                                   />   
+                                   />
                               </Card.Subtitle>
                          </Card.Body>
                     </Card>
