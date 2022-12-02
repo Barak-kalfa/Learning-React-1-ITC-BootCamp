@@ -1,6 +1,7 @@
 import Note from "./Note";
 
-function Notes({ notes, onDelete, setModalShow }) {
+function Notes({ notes, onDelete, setModalShow, setNoteTitle, setNoteValue }) {
+
      return (
           <div className="  flex-wrap d-flex">
                {notes.map((note) => (
@@ -9,6 +10,8 @@ function Notes({ notes, onDelete, setModalShow }) {
                          note={note}
                          onDelete={onDelete}
                          setModalShow={setModalShow}
+                         setNoteTitle={setNoteTitle}
+                         setNoteValue={setNoteValue}
                     />
                ))}
           </div>
