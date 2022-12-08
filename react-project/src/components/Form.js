@@ -153,7 +153,7 @@ function NotesForm(props) {
                                         id="noteText"
                                         onChange={(e) => {
                                              setNoteText(e.target.value);
-                                             setUpdatedDate(
+                                              setUpdatedDate(
                                                   Moment().format("MMM Do YY")
                                              );
                                         }}
